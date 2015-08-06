@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Shell Scripts | work and hypertext]]></title>
+  <link href="http://gveltri.github.io/blog/categories/shell-scripts/atom.xml" rel="self"/>
+  <link href="http://gveltri.github.io/"/>
+  <updated>2015-08-05T22:19:11-04:00</updated>
+  <id>http://gveltri.github.io/</id>
+  <author>
+    <name><![CDATA[Gerardo Veltri]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Project Updates]]></title>
+    <link href="http://gveltri.github.io/blog/2015/08/05/project-updates/"/>
+    <updated>2015-08-05T21:05:54-04:00</updated>
+    <id>http://gveltri.github.io/blog/2015/08/05/project-updates</id>
+    <content type="html"><![CDATA[<h3>BASH Shell Scripts</h3>
+
+<p>&nbsp;&nbsp;&nbsp; Over the last few weeks, I&rsquo;ve been working on a few projects with varying motivations and goals. Before I started at Flatiron, I began using a text editor called emacs as per the advice of a friend who works on OpenBSD. The editor is daunting at first. The learning curve is enormous. After using it for an hour, I wondered why anyone would bother; however, having used it for three and a half weeks, my efficiency in writing code has gone up significantly.</p>
+
+<p>&nbsp;&nbsp;&nbsp; While the program is extremely difficult to learn, memorizing the key-commands results in your hands never having to leave the home position. No more shifting your hands from the keyboard to the mouse to click an area of text. Further, the editor can be customized to reduce the number of times one klicks the keyboard. Becoming more efficient at using the computer is like a drug. Since starting at Flatiron, I&rsquo;ve been seeking ways to speed up the lab-completion process, so I can spend more time reviewing and refactoring code.</p>
+
+<p>&nbsp;&nbsp;&nbsp; So, naturally, I started writing some basic shell scripts. When bash loads, it loads a file called ~/.bash_profile where one can write new shortcuts like &ldquo;subl&rdquo; to open sublime or &ldquo;ll&rdquo; to shorten &ldquo;ls -lah&rdquo;. When we start and end a lab, there&rsquo;s a series of bash commands we all use in succession. They are best condensed and shortened to one command. So, with a bit of research, I set out to write two short scripts.</p>
+
+<p>&nbsp;&nbsp;&nbsp; The first one clones a repository and then changes to the directory that it created.</p>
+
+<p>~/.bash_bin/gitclonecd.sh
+```sh</p>
+
+<p>string=$1
+git clone $string
+string=${string:23}
+cd ${string%%.<em>t}
+echo &ldquo;cloned and moved into directory &rdquo; ${string%%.</em>t} &ldquo;.&rdquo;</p>
+
+<pre><code>
+&amp;nbsp;&amp;nbsp;&amp;nbsp; However, if I wanted to use this script, I would have to type the file name and path in terminal. I needed to also write an alias in my .bash_profile file that would automatically call the script and feed it the command-line argument.
+
+~/.bash_profile
+</code></pre>
+
+<p>alias gitf=&ldquo;. ~/.bash_bin/gitaddcommitpush.sh&rdquo;
+alias gits=&ldquo;. ~/.bash_bin/gitclonecd.sh&rdquo;</p>
+
+<pre><code>
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; The second alias refers to the script pasted above. The first alias refers to the first script I made. This one handles adding, committing, pushing and changing to the above directory.
+
+~/.bash_bin/gitaddcommitpush
+</code></pre>
+
+<p>string=$1
+git add .
+git commit -m $string
+git push origin master
+string=${string:23}
+cd ${string%%.*t}
+echo &ldquo;Pushed to Github with message &lsquo;&rdquo; $string &ldquo;&rsquo;.&rdquo;</p>
+
+<pre><code>
+&amp;nbsp;&amp;nbsp;&amp;nbsp; There are some non-ideal elements to these scripts. For one, the $string variable only takes one command-line argument. Arguments in bash are separated by white space. I can effectively only push a commit with one word. Luckily, that suffices for labs. Secondly, the command-line argument in the first shell script--the url for the remote repository--is reduced to a substring in a very inelegant way. Instead of being returned with regex, it is hardcoded with the index of the string. If anyone wants to use this script, they will have to change lines 3 and 4 to reflect their own account's url. As I learn more bash shell script language, I plan to improve this code.
+
+
+### An Artist's Website
+
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; Several months ago, a friend of mine who makes large, beautiful and oddly sexual sculptures was talking to me about artist websites. She regretted she didn't have one but acknowledged that her vision would cost a significant amount of money to build. Her idea was to have a website where one could pull about the modules of her pieces, which would allow the digital viewer to recombine the pieces in order to create new sculptures. At the time, I had only a bit of experience with building websites, having worked on my own with HTML, CSS and very basic JS. 
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; A few months later, a friend of mine was working on an interactive web game with the javascript library, THREE.js. THREE allows someone with slightly-more-than-basic understanding of javascript to model and render three-dimensional objects in a web browser. While browsing the examples of THREE, a page using a second library, Physi.js, an interactive Jenga game caught my attention. The blocks were beautifully rendered. One could pull out a block, and the tower would collapse rather realistically.
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; It took me another few months to make the connection. I could build this sculptor's website using these two libraries, giving her exactly what she was looking for. In the end, I would get a fulfilling web graphics project with my name on an influential artist's website. So, I pitched her the idea with my friend, and she was elated.
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; Last week, I began writing the code that would sketch out the basic environment of the web gallery. Here's a snippet of code to illustrate how the libraries work.
+
+marthafriedman/public/app/assets/javascripts/gallery.js
+</code></pre>
+
+<pre><code>box = new Physijs.BoxMesh(
+new THREE.BoxGeometry( 10, 10, 10 ),
+new THREE.MeshLambertMaterial({ color: 0xFF66FF }),
+    .4,
+.4
+
+);
+box.position.y=20;
+box.castShadow = true;
+box.receiveShadow = true;
+scene.add( box );
+moveable_objects.push( box ); //add box to the array of shit that can be moved
+</code></pre>
+
+<p>```</p>
+
+<p>&nbsp;&nbsp;&nbsp; Line one declares a new Physijs object with four different arguments. The first argument gives the object a shape; the second gives the object a mesh that reacts to light and has a color (in this case, pink), the third and fourth correspond to the object&rsquo;s friction and restitution. The last line adds the box to an array of things that can eventually be clicked. That bit of code is dealt with later in the gallery.js file and is currently giving me a headache. But, it&rsquo;s all part of the process.</p>
+
+<p>Here&rsquo;s a progress pics, because&ndash;well&ndash;pics or it didn&rsquo;t happen.</p>
+
+<p><img class="<a" src="href="http://i.imgur.com/dO966CM.png">http://i.imgur.com/dO966CM.png</a>"></p>
+]]></content>
+  </entry>
+  
+</feed>
