@@ -4,7 +4,7 @@
   <title><![CDATA[work and hypertext]]></title>
   <link href="http://gveltri.github.io/atom.xml" rel="self"/>
   <link href="http://gveltri.github.io/"/>
-  <updated>2015-08-07T00:04:36-04:00</updated>
+  <updated>2015-08-07T00:04:53-04:00</updated>
   <id>http://gveltri.github.io/</id>
   <author>
     <name><![CDATA[Gerardo Veltri]]></name>
@@ -85,7 +85,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>&nbsp;&nbsp;&nbsp; There are some non-ideal elements to these scripts. <del>For one, the $string variable only takes one command-line argument. Arguments in bash are separated by white space. I can effectively only push a commit with one word. Luckily, that suffices for labs.</del> <em>I fixed this problem using $@ and interpolating the variable on line 3. $@ returns all command line arguments in one variable.</em> <del>Secondly, the command-line argument in the first shell script&ndash;the url for the remote repository&ndash;is reduced to a substring in a very inelegant way. Instead of being returned with regex, it is hardcoded with the index of the string. If anyone wants to use this script, they will have to change lines 3 and 4 to reflect their own account&rsquo;s url. As I learn more bash shell script language, I plan to improve this code.</del> *This was improved with the use of some &ldquo;shell built-ins&rdquo;. The code in gitclonecd.sh extracts everything left of &ldquo;.&rdquo; and everything right of &ldquo;/&rdquo; returning the name of the directory that had already been cloned.</p>
+<p>&nbsp;&nbsp;&nbsp; There are some non-ideal elements to these scripts. <del>For one, the $string variable only takes one command-line argument. Arguments in bash are separated by white space. I can effectively only push a commit with one word. Luckily, that suffices for labs.</del> <em>I fixed this problem using $@ and interpolating the variable on line 3. $@ returns all command line arguments in one variable.</em> <del>Secondly, the command-line argument in the first shell script&ndash;the url for the remote repository&ndash;is reduced to a substring in a very inelegant way. Instead of being returned with regex, it is hardcoded with the index of the string. If anyone wants to use this script, they will have to change lines 3 and 4 to reflect their own account&rsquo;s url. As I learn more bash shell script language, I plan to improve this code.</del> <em>This was improved with the use of some &ldquo;shell built-ins&rdquo;. The code in gitclonecd.sh extracts everything left of &ldquo;.&rdquo; and everything right of &ldquo;/&rdquo; returning the name of the directory that had already been cloned.</em></p>
 
 <h3>An Artist&rsquo;s Website</h3>
 
