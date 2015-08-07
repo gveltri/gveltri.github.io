@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | work and hypertext]]></title>
   <link href="http://gveltri.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://gveltri.github.io/"/>
-  <updated>2015-08-06T23:33:40-04:00</updated>
+  <updated>2015-08-06T23:34:51-04:00</updated>
   <id>http://gveltri.github.io/</id>
   <author>
     <name><![CDATA[Gerardo Veltri]]></name>
@@ -62,7 +62,7 @@ cd ${string%%.*t}
 echo &ldquo;Pushed to Github with message &lsquo;&rdquo; $string &ldquo;&rsquo;.&rdquo;</p>
 
 <pre><code>
-&amp;nbsp;&amp;nbsp;&amp;nbsp; There are some non-ideal elements to these scripts. ~For one, the $string variable only takes one command-line argument. Arguments in bash are separated by white space. I can effectively only push a commit with one word. Luckily, that suffices for labs.~ *I fixed this problem using $@ and interpolating the variable on line 3. $@ returns all command line arguments in one variable. Secondly, the command-line argument in the first shell script--the url for the remote repository--is reduced to a substring in a very inelegant way. Instead of being returned with regex, it is hardcoded with the index of the string. If anyone wants to use this script, they will have to change lines 3 and 4 to reflect their own account's url. As I learn more bash shell script language, I plan to improve this code.
+&amp;nbsp;&amp;nbsp;&amp;nbsp; There are some non-ideal elements to these scripts. ~~For one, the $string variable only takes one command-line argument. Arguments in bash are separated by white space. I can effectively only push a commit with one word. Luckily, that suffices for labs.~~ *I fixed this problem using $@ and interpolating the variable on line 3. $@ returns all command line arguments in one variable. Secondly, the command-line argument in the first shell script--the url for the remote repository--is reduced to a substring in a very inelegant way. Instead of being returned with regex, it is hardcoded with the index of the string. If anyone wants to use this script, they will have to change lines 3 and 4 to reflect their own account's url. As I learn more bash shell script language, I plan to improve this code.
 
 
 ### An Artist's Website
