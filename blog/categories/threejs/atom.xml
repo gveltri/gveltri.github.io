@@ -4,7 +4,7 @@
   <title><![CDATA[Category: threejs | work and hypertext]]></title>
   <link href="http://gveltri.github.io/blog/categories/threejs/atom.xml" rel="self"/>
   <link href="http://gveltri.github.io/"/>
-  <updated>2015-08-06T23:36:34-04:00</updated>
+  <updated>2015-08-07T00:03:45-04:00</updated>
   <id>http://gveltri.github.io/</id>
   <author>
     <name><![CDATA[Gerardo Veltri]]></name>
@@ -32,10 +32,15 @@
 ```sh</p>
 
 <p>string=$1
-git clone $string
-string=${string:23}
-cd ${string%%.<em>t}
-echo &ldquo;cloned and moved into directory &rdquo; ${string%%.</em>t} &ldquo;.&rdquo;</p>
+git clone $string</p>
+
+<p>git clone $string</p>
+
+<p>string=${string#<em>/}
+string=${string%.</em>}</p>
+
+<p>cd ${string}
+echo &ldquo;cloned and moved into directory &rdquo; ${string%%.*t} &ldquo;.&rdquo;</p>
 
 <pre><code>
 &amp;nbsp;&amp;nbsp;&amp;nbsp; However, if I wanted to use this script, I would have to type the file name and path in terminal. I needed to also write an alias in my .bash_profile file that would automatically call the script and feed it the command-line argument.
@@ -50,19 +55,19 @@ alias gits=&ldquo;. ~/.bash_bin/gitclonecd.sh&rdquo;</p>
 
 &amp;nbsp;&amp;nbsp;&amp;nbsp; The second alias refers to the script pasted above. The first alias refers to the first script I made. This one handles adding, committing, pushing and changing to the above directory.
 
-~/.bash_bin/gitaddcommitpush
+~/.bash_bin/gitaddcommitpush.sh
 </code></pre>
 
-<p>string=$@
-git add .
+<p>string=$@</p>
+
+<p>git add .
 git commit -m &ldquo;${string}&rdquo;
 git push origin master
-string=${string:23}
-cd ${string%%.*t}
-echo &ldquo;Pushed to Github with message &lsquo;&rdquo; $string &ldquo;&rsquo;.&rdquo;</p>
+cd ..
+echo &ldquo;Pushed to Github with message ${string}.&rdquo;</p>
 
 <pre><code>
-&amp;nbsp;&amp;nbsp;&amp;nbsp; There are some non-ideal elements to these scripts. ~~For one, the $string variable only takes one command-line argument. Arguments in bash are separated by white space. I can effectively only push a commit with one word. Luckily, that suffices for labs.~~ *I fixed this problem using $@ and interpolating the variable on line 3. $@ returns all command line arguments in one variable.* Secondly, the command-line argument in the first shell script--the url for the remote repository--is reduced to a substring in a very inelegant way. Instead of being returned with regex, it is hardcoded with the index of the string. If anyone wants to use this script, they will have to change lines 3 and 4 to reflect their own account's url. As I learn more bash shell script language, I plan to improve this code.
+&amp;nbsp;&amp;nbsp;&amp;nbsp; There are some non-ideal elements to these scripts. ~~For one, the $string variable only takes one command-line argument. Arguments in bash are separated by white space. I can effectively only push a commit with one word. Luckily, that suffices for labs.~~ *I fixed this problem using $@ and interpolating the variable on line 3. $@ returns all command line arguments in one variable.* ~~Secondly, the command-line argument in the first shell script--the url for the remote repository--is reduced to a substring in a very inelegant way. Instead of being returned with regex, it is hardcoded with the index of the string. If anyone wants to use this script, they will have to change lines 3 and 4 to reflect their own account's url. As I learn more bash shell script language, I plan to improve this code.~~ *This was improved with the use of some "shell built-ins". The code in gitclonecd.sh extracts everything left of "." and everything right of "/" returning the name of the directory that had already been cloned.
 
 
 ### An Artist's Website
