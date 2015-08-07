@@ -4,7 +4,7 @@
   <title><![CDATA[Category: physijs | work and hypertext]]></title>
   <link href="http://gveltri.github.io/blog/categories/physijs/atom.xml" rel="self"/>
   <link href="http://gveltri.github.io/"/>
-  <updated>2015-08-07T00:04:53-04:00</updated>
+  <updated>2015-08-07T11:57:59-04:00</updated>
   <id>http://gveltri.github.io/</id>
   <author>
     <name><![CDATA[Gerardo Veltri]]></name>
@@ -34,13 +34,11 @@
 <p>string=$1
 git clone $string</p>
 
-<p>git clone $string</p>
-
 <p>string=${string#<em>/}
 string=${string%.</em>}</p>
 
 <p>cd ${string}
-echo &ldquo;cloned and moved into directory &rdquo; ${string%%.*t} &ldquo;.&rdquo;</p>
+echo &ldquo;cloned and moved into directory ${string)&rdquo;</p>
 
 <pre><code>
 &amp;nbsp;&amp;nbsp;&amp;nbsp; However, if I wanted to use this script, I would have to type the file name and path in terminal. I needed to also write an alias in my .bash_profile file that would automatically call the script and feed it the command-line argument.
@@ -63,6 +61,7 @@ alias gits=&ldquo;. ~/.bash_bin/gitclonecd.sh&rdquo;</p>
 <p>git add .
 git commit -m &ldquo;${string}&rdquo;
 git push origin master
+hub browse
 cd ..
 echo &ldquo;Pushed to Github with message ${string}.&rdquo;</p>
 
