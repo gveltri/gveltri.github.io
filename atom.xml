@@ -4,7 +4,7 @@
   <title><![CDATA[work and hypertext]]></title>
   <link href="http://gveltri.github.io/atom.xml" rel="self"/>
   <link href="http://gveltri.github.io/"/>
-  <updated>2015-08-06T08:49:38-04:00</updated>
+  <updated>2015-08-06T23:33:40-04:00</updated>
   <id>http://gveltri.github.io/</id>
   <author>
     <name><![CDATA[Gerardo Veltri]]></name>
@@ -65,9 +65,9 @@
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">string</span><span class="o">=</span><span class="nv">$1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">string</span><span class="o">=</span><span class="nv">$@</span>
 </span><span class='line'>git add .
-</span><span class='line'>git commit -m <span class="nv">$string</span>
+</span><span class='line'>git commit -m <span class="s2">&quot;${string}&quot;</span>
 </span><span class='line'>git push origin master
 </span><span class='line'><span class="nv">string</span><span class="o">=</span><span class="k">${</span><span class="nv">string</span><span class="p">:</span><span class="nv">23</span><span class="k">}</span>
 </span><span class='line'><span class="nb">cd</span> <span class="k">${</span><span class="nv">string</span><span class="p">%%.*t</span><span class="k">}</span>
@@ -75,7 +75,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>&nbsp;&nbsp;&nbsp; There are some non-ideal elements to these scripts. For one, the $string variable only takes one command-line argument. Arguments in bash are separated by white space. I can effectively only push a commit with one word. Luckily, that suffices for labs. Secondly, the command-line argument in the first shell script&ndash;the url for the remote repository&ndash;is reduced to a substring in a very inelegant way. Instead of being returned with regex, it is hardcoded with the index of the string. If anyone wants to use this script, they will have to change lines 3 and 4 to reflect their own account&rsquo;s url. As I learn more bash shell script language, I plan to improve this code.</p>
+<p>&nbsp;&nbsp;&nbsp; There are some non-ideal elements to these scripts. ~For one, the $string variable only takes one command-line argument. Arguments in bash are separated by white space. I can effectively only push a commit with one word. Luckily, that suffices for labs.~ *I fixed this problem using $@ and interpolating the variable on line 3. $@ returns all command line arguments in one variable. Secondly, the command-line argument in the first shell script&ndash;the url for the remote repository&ndash;is reduced to a substring in a very inelegant way. Instead of being returned with regex, it is hardcoded with the index of the string. If anyone wants to use this script, they will have to change lines 3 and 4 to reflect their own account&rsquo;s url. As I learn more bash shell script language, I plan to improve this code.</p>
 
 <h3>An Artist&rsquo;s Website</h3>
 
