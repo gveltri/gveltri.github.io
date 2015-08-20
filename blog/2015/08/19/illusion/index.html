@@ -1,0 +1,212 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Perspective  | work and hypertext</title>
+
+<meta name="author" content="Gerardo Veltri"> 
+
+<meta name="description" content="Detailing the goings-on of digital Gerardo."> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="work and hypertext" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">work and hypertext</a></h1>
+<h4>efficiency, economy and elegance</h4>
+<nav id="main-nav"><ul>
+	<li><a href="htt://www.workandtext.com">work and text</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="htt://www.workandtext.com">work and text</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:gveltri.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Perspective</h2>
+	<div class="entry-content"><p>&nbsp;&nbsp;&nbsp; There&rsquo;s a lot of mystification around the painted image. Many have admitted they couldn&rsquo;t make great works of art because they weren&rsquo;t born with the natural skill to render the natural world. Everytime we attribute great work in the arts to this mysterious genius-quotient, we are overlooking how art is created by means of technology, owing itself to more than simply the hands of a cinquecento master.</p>
+
+<p>&nbsp;&nbsp;&nbsp; Paul Graham is particularly guilty of this in his essay &ldquo;Hackers and Painters&rdquo;. While attempting to praise the work of Leonardo DaVinci, he condescendling puts emphasis on the painstaking work of painting every leaf in a bush. In fact, if we are to go along with Graham&rsquo;s comparison, almost anything could be substituted for painting. A hero figure works hard and paves the way for more people to do what he does. This argument is not specific and you shouldn&rsquo;t care about it. By allowing his audience to be mystified at DaVinci&rsquo;s genius, Graham avoids discussing what exactly makes oil painting significant.</p>
+
+<p>&nbsp;&nbsp;&nbsp; There is a non-trivial relationship between Western oil painting and computing, and its love-child is 3D graphics. Let&rsquo;s talk a bit about painting. In the 15th century, Filippo Brunelleschi sketched the Florentine skyline on a mirror. By extending the lines of the buildings, he discovered that they were in fact perspectival orthogonals that converged on a vanishing point. This discovery began the widespread use of perspective on the Italian penninsula and, eventually, the rest of Europe. Others had guessed at perspective, and some were disinterested. However, Brunelleschi&rsquo;s discovery was significant because it revealed the geometric relationship of things in space to our perception of them. Whether beautiful or devotional, this method served to create an image that mimicked perception rather than coding objects' relationships symbolically.</p>
+
+<p>&nbsp;&nbsp;&nbsp; Brunelleschi was not gifted with the ability to perfectly draw a skyline. Optical devices allowed him to separate the world that he perceived from its planar representation. Rather than having to paint everything outside his window, he could isolate that image to a flat surface. This is technology used interestingly. This is a hack. In 2002, artist David Hockney and physicist Charles M. Falco published a treatise on their theory that the photographic realism achieved by renaissance art is the result of optical technology: camera obscuras, camera lucidas, curved mirrors. Furthermore, artists like Giotto were calculating the orthogonals using rudimentary algebra.</p>
+
+<p><img class="left" src="https://virtualterritory.files.wordpress.com/2007/05/a-duerer-a-man-drawing-a-lute-sml-512.jpg" width="300" height="500"></p>
+
+<p>&nbsp;&nbsp;&nbsp; Painters used technology to discover the transformation of a three-dimensional space into a two-dimensional image as perceived from a position defined in that space. This the general problem. Computer graphics use a very similar concept of perspective to project a scene. A projection is a flattening of a three-dimensional coordinates such that they can be presented on a two-dimensional surface. When we play video-games or work in CAD, we are experiencing the graphics engine rendering the scene by transforming a matrix of 3D coordinates into 2D coordinates. Oil painting happens at 50 frames per second.</p>
+
+<p><img class="right" src="/images/matrix_transformation.png" width="300" height="500"></p>
+
+<p>&nbsp;&nbsp;&nbsp; I&rsquo;ve begun to think a lot more about perspective since working with WebGL through Three.js. I had the issue of trying to create a ray that would intersect with objects on a field, allowing me to select those objects and move them with my cursor. This is a somewhat complex operation that is heavily simplified in the Three.js library.</p>
+
+<p>&nbsp;&nbsp;&nbsp; When we click a screen, our computer doesn&rsquo;t intuit where in three-dimensional space where that click lands. The click corresponds to x- and y-coordinates. These clicks have to be extended into space using a ray-caster.</p>
+
+<p>gallery.js</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">raycaster</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Raycaster</span><span class="p">(</span><span class="nx">camera</span><span class="p">,</span> <span class="mi">3</span><span class="nx">d_vector</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Three.js</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">THREE</span><span class="p">.</span><span class="nx">Raycaster</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">direction</span><span class="p">,</span> <span class="nx">near</span><span class="p">,</span> <span class="nx">far</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">ray</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Ray</span><span class="p">(</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">direction</span> <span class="p">);</span>
+</span><span class='line'>        <span class="c1">// direction is assumed to be normalized (for accurate distance</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">near</span> <span class="o">=</span> <span class="nx">near</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">far</span> <span class="o">=</span> <span class="nx">far</span> <span class="o">||</span> <span class="kc">Infinity</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">Sprite</span><span class="o">:</span> <span class="p">{},</span>
+</span><span class='line'>                <span class="nx">Mesh</span><span class="o">:</span> <span class="p">{},</span>
+</span><span class='line'>                <span class="nx">PointCloud</span><span class="o">:</span> <span class="p">{</span> <span class="nx">threshold</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
+</span><span class='line'>                <span class="nx">LOD</span><span class="o">:</span> <span class="p">{},</span>
+</span><span class='line'>        <span class="p">};</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&nbsp;&nbsp;&nbsp; This raycaster object is set with the coordinates of the camera and a three-dimensional vector that is constructed from the mouse-click. The mouse-click&rsquo;s z-coordinate is set to 1, the near frustum. When we ask the raycaster what it intersects with in the scene,it creates a line of spheres extending into the scene along this line and checks if those spheres intersect with the coordinates of any of the objects. This is an extremely basic explanation of hundreds of lines of code. Nonetheless, the logic of it can be understood. Three.js gets around the problem of unprojecting a vector by drawing a line between two points.</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-08-19T09:51:43-04:00" pubdate data-updated="true"></time></div>
+	
+
+
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    Gerardo Veltri
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
