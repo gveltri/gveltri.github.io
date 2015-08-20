@@ -113,6 +113,8 @@ $(document).ready(
 
 <p>&nbsp;&nbsp;&nbsp; Painters used technology to discover the transformation of a three-dimensional space into a two-dimensional image as perceived from a position defined in that space. Computer graphics use a very similar understanding of perspective to project a scene. A projection is a flattening of  three-dimensional coordinates such that they can be presented on a two-dimensional surface. When we play video-games or work in CAD, we are experiencing the graphics engine rendering the scene by transforming a matrix of 3D coordinates into 2D coordinates. Oil painting happens at 50 frames per second.</p>
 
+<p>&nbsp;&nbsp;&nbsp; In order for us to program this into the computer, we have to define this operation mathematically such that it is iterable. This is done through matrix multiplication. The graphic below demonstrates how the transformation matrix can be divided up into different operations on coordinates that follow the same rules.</p>
+
 <p><img class="right" src="/images/matrix_transformation.png" width="300" height="500"></p>
 
 <p>&nbsp;&nbsp;&nbsp; I&rsquo;ve begun to think a lot more about perspective since working with WebGL through Three.js. I had the issue of trying to create a ray that would intersect with objects on a field, allowing me to select those objects and move them with my cursor. This is a somewhat complex operation that is heavily simplified in the Three.js library.</p>
@@ -159,7 +161,7 @@ $(document).ready(
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>&nbsp;&nbsp;&nbsp; This raycaster object is set with the coordinates of the camera and a three-dimensional vector that is constructed from the mouse-click. The mouse-click&rsquo;s z-coordinate is set to 1, the near frustum. When we ask the raycaster what it intersects with in the scene,it creates a line of spheres extending into the scene along this line and checks if those spheres intersect with the coordinates of any of the objects. This is an extremely basic explanation of hundreds of lines of code. Nonetheless, the logic of it can be understood. Three.js gets around the problem of unprojecting a vector by drawing a line between two points.</p>
+<p>&nbsp;&nbsp;&nbsp; This raycaster object is set with the coordinates of the camera and a three-dimensional vector that is constructed from the mouse-click. The mouse-click&rsquo;s z-coordinate is set to 1, the near frustum, thus the mouse is told that it intersects with the frame of the screen as a plan in the 3D environment. When we ask the raycaster what it intersects with in the scene,it creates a line of spheres extending into the scene along this line and checks if those spheres intersect with the coordinates of any of the objects. This is an extremely basic explanation of hundreds of lines of code. Nonetheless, the logic of it can be understood. Three.js gets around the problem of unprojecting a vector by drawing a three-dimensional line between two points.</p>
 
 		
 		
