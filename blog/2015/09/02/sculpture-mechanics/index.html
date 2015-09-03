@@ -5,7 +5,7 @@
 	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
 	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<meta charset="utf-8">
-	<title>efficiency, economy and elegance  | work and hypertext</title>
+	<title>Modular Code for Modular Works of Art  | work and hypertext</title>
 
 <meta name="author" content="Gerardo Veltri"> 
 
@@ -90,18 +90,9 @@ $(document).ready(
 
 </header>
 
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/09/02/sculpture-mechanics/">
-		
-			Modular Code for Modular Works of Art</a>
-	</h2>
-	<div class="entry-content">
-		<p>&nbsp;&nbsp;&nbsp; A key feature of Martha Friedman&rsquo;s work is its modularity. Although you won&rsquo;t see people rearranging parts of pieces in the gallery, the human-scale sculptures appear composed of individual objects that are strung through poles or resting on boxes. The digital gallery, however, allows the user to enter an interactive fantasy in which the heavy and delicate pieces can be removed and reaffixed to other supports.</p>
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Modular Code for Modular Works of Art</h2>
+	<div class="entry-content"><p>&nbsp;&nbsp;&nbsp; A key feature of Martha Friedman&rsquo;s work is its modularity. Although you won&rsquo;t see people rearranging parts of pieces in the gallery, the human-scale sculptures appear composed of individual objects that are strung through poles or resting on boxes. The digital gallery, however, allows the user to enter an interactive fantasy in which the heavy and delicate pieces can be removed and reaffixed to other supports.</p>
 
 <p><img class="right" src="/images/olive-totem.jpg" width="300" height="500"></p>
 
@@ -423,10 +414,7 @@ $(document).ready(
 <p>&nbsp;&nbsp;&nbsp; Because I&rsquo;ve now folded the armature and olives into an object, I can further refactor the code to include logic specific to the piece. Moving forward, I plan to include new mechanics beyond stacking and animating the snapping and desnapping so as to enhance the user&rsquo;s experience.</p>
 
 <p>&nbsp;&nbsp;&nbsp; Also, those damn olives need to be properly modeled.</p>
-
-		
-		
-	</div>
+</div>
 
 
 <div class="meta">
@@ -449,295 +437,20 @@ $(document).ready(
 	
 </div></article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/08/19/illusion/">
-		
-			Perspective</a>
-	</h2>
-	<div class="entry-content">
-		<p>&nbsp;&nbsp;&nbsp; There&rsquo;s a lot of mystification around the painted image. Many have admitted they couldn&rsquo;t make great works of art because they weren&rsquo;t born with the natural skill to render the natural world. Everytime we attribute great work in the arts to this mysterious genius-quotient, we are overlooking how art is created by means of technology, owing itself to more than simply the hands of a cinquecento master.</p>
-
-<p>&nbsp;&nbsp;&nbsp; Paul Graham is particularly guilty of this in his essay &ldquo;Hackers and Painters&rdquo;. While attempting to praise the work of Leonardo DaVinci, he condescendingly puts emphasis on the painstaking work of painting every leaf in a bush. In fact, if we are to go along with Graham&rsquo;s comparison, almost anything could be substituted for painting. A hero figure works hard and paves the way for more people to do what he does. This argument is not specific and you shouldn&rsquo;t care about it. By allowing his audience to be mystified at DaVinci&rsquo;s genius, Graham avoids discussing what exactly makes oil painting significant.</p>
-
-<p>&nbsp;&nbsp;&nbsp; There is a non-trivial relationship between Western oil painting and computing, and its love-child is 3D graphics. Let&rsquo;s talk a bit about painting. In the 15th century, Filippo Brunelleschi sketched the Florentine skyline on a mirror. By extending the lines of the buildings, he discovered that they were in fact perspectival orthogonals that converged on a vanishing point. This discovery began the widespread use of perspective on the Italian penninsula and, eventually, the rest of Europe. Others had guessed at perspective, and some were disinterested. However, Brunelleschi&rsquo;s discovery was significant because it revealed the geometric relationship of things in space to our perception of them. Whether beautiful or devotional, this method served to create an image that mimicked perception rather than coding objects' relationships symbolically.</p>
-
-<p>&nbsp;&nbsp;&nbsp; Brunelleschi was not gifted with the ability to perfectly draw a skyline. Optical devices allowed him to separate the world that he perceived from its planar representation. Rather than having to paint everything outside his window, he could isolate that image to a flat surface. This is technology used interestingly. This is a hack. In 2002, artist David Hockney and physicist Charles M. Falco published a treatise on their theory that the photographic realism achieved by renaissance art is the result of optical technology: camera obscuras, camera lucidas, curved mirrors. Furthermore, artists like Giotto were calculating the orthogonals using rudimentary algebra.</p>
-
-<p><img class="left" src="https://virtualterritory.files.wordpress.com/2007/05/a-duerer-a-man-drawing-a-lute-sml-512.jpg" width="300" height="500"></p>
-
-<p>&nbsp;&nbsp;&nbsp; Painters used technology to discover the transformation of a three-dimensional space into a two-dimensional image as perceived from a position defined in that space. Computer graphics use a very similar understanding of perspective to project a scene. A projection is a flattening of  three-dimensional coordinates such that they can be presented on a two-dimensional surface. When we play video-games or work in CAD, we are experiencing the graphics engine rendering the scene by transforming a matrix of 3D coordinates into 2D coordinates. Oil painting happens at 50 frames per second.</p>
-
-<p>&nbsp;&nbsp;&nbsp; In order for us to program this into the computer, we have to define this operation mathematically such that it is iterable. This is done through matrix multiplication. The graphic below demonstrates how the transformation matrix can be divided up into different operations on coordinates that follow the same rules.</p>
-
-<p><img class="right" src="/images/matrix_transformation.png" width="300" height="500"></p>
-
-<p>&nbsp;&nbsp;&nbsp; I&rsquo;ve begun to think a lot more about perspective since working with WebGL through Three.js. I had the issue of trying to create a ray that would intersect with objects on a field, allowing me to select those objects and move them with my cursor. This is a somewhat complex operation that is heavily simplified in the Three.js library.</p>
-
-<p>&nbsp;&nbsp;&nbsp; When we click a screen, our computer doesn&rsquo;t intuit where in three-dimensional space where that click lands. The click corresponds to x- and y-coordinates. These clicks have to be extended into space using a ray-caster.</p>
-
-<p>gallery.js</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">raycaster</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Raycaster</span><span class="p">(</span><span class="nx">camera</span><span class="p">,</span> <span class="mi">3</span><span class="nx">d_vector</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Three.js</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">THREE</span><span class="p">.</span><span class="nx">Raycaster</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">direction</span><span class="p">,</span> <span class="nx">near</span><span class="p">,</span> <span class="nx">far</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">ray</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Ray</span><span class="p">(</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">direction</span> <span class="p">);</span>
-</span><span class='line'>        <span class="c1">// direction is assumed to be normalized (for accurate distance</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">near</span> <span class="o">=</span> <span class="nx">near</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">far</span> <span class="o">=</span> <span class="nx">far</span> <span class="o">||</span> <span class="kc">Infinity</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nx">Sprite</span><span class="o">:</span> <span class="p">{},</span>
-</span><span class='line'>                <span class="nx">Mesh</span><span class="o">:</span> <span class="p">{},</span>
-</span><span class='line'>                <span class="nx">PointCloud</span><span class="o">:</span> <span class="p">{</span> <span class="nx">threshold</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
-</span><span class='line'>                <span class="nx">LOD</span><span class="o">:</span> <span class="p">{},</span>
-</span><span class='line'>        <span class="p">};</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>&nbsp;&nbsp;&nbsp; This raycaster object is set with the coordinates of the camera and a three-dimensional vector that is constructed from the mouse-click. The mouse-click&rsquo;s z-coordinate is set to 1, the near frustum, thus the mouse is told that it intersects with the frame of the screen as a plane in the 3D environment. When we ask the raycaster what it intersects with in the scene,it creates a line of spheres extending into the scene along this line and checks if those spheres intersect with the coordinates of any of the objects. This is an extremely basic explanation of hundreds of lines of code. Nonetheless, the logic of it can be understood. Three.js gets around the problem of unprojecting a vector by drawing a three-dimensional line between two points.</p>
-
-		
-		
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
 	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-08-19T09:51:43-04:00" pubdate data-updated="true"></time></div>
-	
-
-
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/08/05/project-updates/">
-		
-			Project Updates</a>
-	</h2>
-	<div class="entry-content">
-		<h3>BASH Shell Scripts</h3>
-
-<p>&nbsp;&nbsp;&nbsp; Over the last few weeks, I&rsquo;ve been working on a few projects with varying motivations and goals. Before I started at Flatiron, I began using a text editor called emacs as per the advice of a friend who works on OpenBSD. The editor is daunting at first. The learning curve is enormous. After using it for an hour, I wondered why anyone would bother; however, having used it for three and a half weeks, my efficiency in writing code has gone up significantly.</p>
-
-<p>&nbsp;&nbsp;&nbsp; While the program is extremely difficult to learn, memorizing the key-commands results in your hands never having to leave the home position. No more shifting your hands from the keyboard to the mouse to click an area of text. Further, the editor can be customized to reduce the number of times one klicks the keyboard. Becoming more efficient at using the computer is like a drug. Since starting at Flatiron, I&rsquo;ve been seeking ways to speed up the lab-completion process, so I can spend more time reviewing and refactoring code.</p>
-
-<p>&nbsp;&nbsp;&nbsp; So, naturally, I started writing some basic shell scripts. When bash loads, it loads a file called ~/.bash_profile where one can write new shortcuts like &ldquo;subl&rdquo; to open sublime or &ldquo;ll&rdquo; to shorten &ldquo;ls -lah&rdquo;. When we start and end a lab, there&rsquo;s a series of bash commands we all use in succession. They are best condensed and shortened to one command. So, with a bit of research, I set out to write two short scripts.</p>
-
-<p>&nbsp;&nbsp;&nbsp; The first one clones a repository and then changes to the directory that it created.</p>
-
-<p>~/.bash_bin/gitclonecd.sh</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">string</span><span class="o">=</span><span class="nv">$1</span>
-</span><span class='line'>git clone <span class="nv">$string</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">string</span><span class="o">=</span><span class="k">${</span><span class="nv">string</span><span class="p">#*/</span><span class="k">}</span>
-</span><span class='line'><span class="nv">string</span><span class="o">=</span><span class="k">${</span><span class="nv">string</span><span class="p">%.*</span><span class="k">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">cd</span> <span class="k">${</span><span class="nv">string</span><span class="k">}</span>
-</span><span class='line'><span class="nb">echo</span> <span class="s2">&quot;cloned and moved into directory ${string)&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>&nbsp;&nbsp;&nbsp; However, if I wanted to use this script, I would have to type the file name and path in terminal. I needed to also write an alias in my .bash_profile file that would automatically call the script and feed it the command-line argument.</p>
-
-<p>~/.bash_profile</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">alias </span><span class="nv">gitf</span><span class="o">=</span><span class="s2">&quot;. ~/.bash_bin/gitaddcommitpush.sh&quot;</span>
-</span><span class='line'><span class="nb">alias </span><span class="nv">gits</span><span class="o">=</span><span class="s2">&quot;. ~/.bash_bin/gitclonecd.sh&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>&nbsp;&nbsp;&nbsp; The second alias refers to the script pasted above. The first alias refers to the first script I made. This one handles adding, committing, pushing and changing to the above directory.</p>
-
-<p>~/.bash_bin/gitaddcommitpush.sh</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">string</span><span class="o">=</span><span class="nv">$@</span>
-</span><span class='line'>
-</span><span class='line'>git add .
-</span><span class='line'>git commit -m <span class="s2">&quot;${string}&quot;</span>
-</span><span class='line'>git push origin master
-</span><span class='line'>hub browse
-</span><span class='line'><span class="nb">cd</span> ..
-</span><span class='line'><span class="nb">echo</span> <span class="s2">&quot;Pushed to Github with message ${string}.&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>&nbsp;&nbsp;&nbsp; There are some non-ideal elements to these scripts. <del>For one, the $string variable only takes one command-line argument. Arguments in bash are separated by white space. I can effectively only push a commit with one word. Luckily, that suffices for labs.</del> <em>I fixed this problem using $@ and interpolating the variable on line 3. $@ returns all command line arguments in one variable.</em> <del>Secondly, the command-line argument in the first shell script&ndash;the url for the remote repository&ndash;is reduced to a substring in a very inelegant way. Instead of being returned with regex, it is hardcoded with the index of the string. If anyone wants to use this script, they will have to change lines 3 and 4 to reflect their own account&rsquo;s url. As I learn more bash shell script language, I plan to improve this code.</del> <em>This was improved with the use of some &ldquo;shell built-ins&rdquo;. The code in gitclonecd.sh extracts everything left of &ldquo;.&rdquo; and everything right of &ldquo;/&rdquo; returning the name of the directory that had already been cloned.</em></p>
-
-<h3>An Artist&rsquo;s Website</h3>
-
-<p>&nbsp;&nbsp;&nbsp; Several months ago, a friend of mine who makes large, beautiful and oddly sexual sculptures was talking to me about artist websites. She regretted she didn&rsquo;t have one but acknowledged that her vision would cost a significant amount of money to build. Her idea was to have a website where one could pull about the modules of her pieces, which would allow the digital viewer to recombine the pieces in order to create new sculptures. At the time, I had only a bit of experience with building websites, having worked on my own with HTML, CSS and very basic JS.</p>
-
-<p>&nbsp;&nbsp;&nbsp; A few months later, a friend of mine was working on an interactive web game with the javascript library, THREE.js. THREE allows someone with slightly-more-than-basic understanding of javascript to model and render three-dimensional objects in a web browser. While browsing the examples of THREE, a page using a second library, Physi.js, an interactive Jenga game caught my attention. The blocks were beautifully rendered. One could pull out a block, and the tower would collapse rather realistically.</p>
-
-<p>&nbsp;&nbsp;&nbsp; It took me another few months to make the connection. I could build this sculptor&rsquo;s website using these two libraries, giving her exactly what she was looking for. In the end, I would get a fulfilling web graphics project with my name on an influential artist&rsquo;s website. So, I pitched her the idea with my friend, and she was elated.</p>
-
-<p>&nbsp;&nbsp;&nbsp; Last week, I began writing the code that would sketch out the basic environment of the web gallery. Here&rsquo;s a snippet of code to illustrate how the libraries work.</p>
-
-<p>marthafriedman/public/app/assets/javascripts/gallery.js</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">box</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Physijs</span><span class="p">.</span><span class="nx">BoxMesh</span><span class="p">(</span>
-</span><span class='line'><span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">BoxGeometry</span><span class="p">(</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span> <span class="p">),</span>
-</span><span class='line'><span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshLambertMaterial</span><span class="p">({</span> <span class="nx">color</span><span class="o">:</span> <span class="mh">0xFF66FF</span> <span class="p">}),</span>
-</span><span class='line'>    <span class="p">.</span><span class="mi">4</span><span class="p">,</span>
-</span><span class='line'><span class="p">.</span><span class="mi">4</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">);</span>
-</span><span class='line'><span class="nx">box</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="o">=</span><span class="mi">20</span><span class="p">;</span>
-</span><span class='line'><span class="nx">box</span><span class="p">.</span><span class="nx">castShadow</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'><span class="nx">box</span><span class="p">.</span><span class="nx">receiveShadow</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'><span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span> <span class="nx">box</span> <span class="p">);</span>
-</span><span class='line'><span class="nx">moveable_objects</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">box</span> <span class="p">);</span> <span class="c1">//add box to the array of shit that can be moved</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>&nbsp;&nbsp;&nbsp; Line one declares a new Physijs object with four different arguments. The first argument gives the object a shape; the second gives the object a mesh that reacts to light and has a color (in this case, pink), the third and fourth correspond to the object&rsquo;s friction and restitution. The last line adds the box to an array of things that can eventually be clicked. That bit of code is dealt with later in the gallery.js file and is currently giving me a headache. But, it&rsquo;s all part of the process.</p>
-
-<p>Here&rsquo;s a progress pics, because&ndash;well&ndash;pics or it didn&rsquo;t happen.</p>
-
-<p><img src="http://i.imgur.com/dO966CM.png"></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-08-05T21:05:54-04:00" pubdate data-updated="true"></time></div>
-	
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/artist-websites/'>artist websites</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/physijs/'>physijs</a>, <a class='category' href='/blog/categories/shell-scripts/'>shell scripts</a>, <a class='category' href='/blog/categories/threejs/'>threejs</a>
-
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
 
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/07/29/pilot/">
-		
-			PILOT</a>
-	</h2>
-	<div class="entry-content">
-		<p>It&rsquo;s here&ndash;the blog that few have sought and even fewer have found.</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-07-29T14:51:08-04:00" pubdate data-updated="true"></time></div>
-	
-
-
-	
-</div></article>
-
-<nav id="pagenavi">
-    
-    
-    <div class="center"><a href="/archives">Blog Archives</a></div>
-</nav></div>
+</div>
 	<footer id="footer" class="inner">Copyright &copy; 2015
 
     Gerardo Veltri
