@@ -1,0 +1,184 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Boolean Logic and Bitwise Operators  | work and hypertext</title>
+
+<meta name="author" content="Gerardo Veltri"> 
+
+<meta name="description" content="Detailing the goings-on of digital Gerardo."> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="work and hypertext" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">work and hypertext</a></h1>
+<h4>efficiency, economy and elegance</h4>
+<nav id="main-nav"><ul>
+	<li><a href="htt://www.workandtext.com">work and text</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="htt://www.workandtext.com">work and text</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:gveltri.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Boolean Logic and Bitwise Operators</h2>
+	<div class="entry-content"><p>Understanding the fundamentals of computing is not only valuable for coding interviews. I would identify myself as someone who believes in this axiom: history helps us better understand the present. I’m particularly interested in how the machine processes information at the most fundamental level. Society is generally aware that our machines process information as a series of 0s and 1s, but how exactly does that work?</p>
+
+<p><img class="right" src="/images/shannon.jpg"></p>
+
+<p>The story of the 0s and 1s begins, for our intents and purposes, at MIT’s graduate school. Claude Shannon, who is famous for his later founding of information theory, wrote a masters thesis applying the slightly obscure Boolean algebra to the problem of telephone relays. For much of the 20th century, routing telephone calls was an incredibly costly operation. His thesis, <em>A Symbolic Analysis of Relay Switching Circuits</em>, showed that boolean algebra could simplify the system of relays that were currently in place as well as the converse&ndash;that relays could be arranged to solve problems in boolean algebra. This assertion made clear the relationship between circuits and logic gates.</p>
+
+<p>We all know that a boolean is either 1 or 0, so boolean algebra is the set of operations that can be performed on a boolean. In every computer, circuits are a physical manifestation of the logic of booleans. This is the most basic logic that allows a program to run, for the computer to be booted&ndash;for anything to work digitally. These are its first order operations:</p>
+
+<p><img class="left" src="/images/transistor.jpg"></p>
+
+<h3>AND, OR, and NOT</h3>
+
+<p><em>AND</em> is a conjunction. If and only if both booleans are true, then their conjunction is also true. We represent this in our higher-level programming languages (like Ruby and JavaScript) as <em>A &amp;&amp; B</em>.</p>
+
+<p><em>OR</em> is a disjunction. If either boolean is true, then their disjunction is true. If both are false, then their disjunction is false. <em>A || B</em> in our terms.</p>
+
+<p><em>NOT</em> is a negation. If a boolean is true, it&rsquo;s negation is false and vice versa. And as you might expect, <em>!A</em>.</p>
+
+<p>Now, what interests me most about boolean logic is that the combination of these three basic functions produces all of the operations we could possibly want to do on any bit of information.</p>
+
+<p>For example, a <em>NOR</em> is a combination of negation and disjunction. It is true if neither boolean is true. It would look something like <em>!(A || B)</em>.</p>
+
+<p>By now, we can deduce what <em>NAND</em> might look like: <em>!(A &amp;&amp; B)</em>.</p>
+
+<p>There are many ways of representing these operations, and perhaps one of the most clear ways is a truth table. Because operations can be strung together to make even more complicated operations, these tables can end up having many columns. Here&rsquo;s a rather simple truth table:</p>
+
+<p><img src="/images/logic-table.png"></p>
+
+<p><img class="right" src="/images/2to1mux.png" width="150"></p>
+
+<p>And here&rsquo;s a truth table for a multiplexer. A multiplexer selects a signal based on the value of the selector, s. Muxes are everywhere. They are in your CPU, graphics card. The output of a Mux is Demuxed on the other end. Multiplexers allow an engineer to send multiple different signals over the same channel by selecting them at different times. Otherwise, a bunch of channels would be necessary. What&rsquo;s the obvious application for this? A telephone network&ndash;the original problem that Shannon exposed to boolean algebra.</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-16T10:09:10-04:00" pubdate data-updated="true"></time></div>
+	
+
+
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    Gerardo Veltri
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
