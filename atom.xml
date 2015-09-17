@@ -4,7 +4,7 @@
   <title><![CDATA[work and hypertext]]></title>
   <link href="http://gveltri.github.io/atom.xml" rel="self"/>
   <link href="http://gveltri.github.io/"/>
-  <updated>2015-09-17T10:32:01-04:00</updated>
+  <updated>2015-09-17T10:35:40-04:00</updated>
   <id>http://gveltri.github.io/</id>
   <author>
     <name><![CDATA[Gerardo Veltri]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Boolean Logic and Bitwise Operators]]></title>
+    <title type="html"><![CDATA[A Bit of Boolean Logic and its History]]></title>
     <link href="http://gveltri.github.io/blog/2015/09/16/boolean-algebra/"/>
     <updated>2015-09-16T10:09:10-04:00</updated>
     <id>http://gveltri.github.io/blog/2015/09/16/boolean-algebra</id>
