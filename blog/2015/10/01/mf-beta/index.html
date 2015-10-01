@@ -1,0 +1,204 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Deploying to Heroku  | work and hypertext</title>
+
+<meta name="author" content="Gerardo Veltri"> 
+
+<meta name="description" content="Detailing the goings-on of digital Gerardo."> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="work and hypertext" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">work and hypertext</a></h1>
+<h4>efficiency, economy and elegance</h4>
+<nav id="main-nav"><ul>
+	<li><a href="http://www.workandtext.com">work and text</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="http://www.workandtext.com">work and text</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:gveltri.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Deploying to Heroku</h2>
+	<div class="entry-content"><h3>Humble Beginnings</h3>
+
+<p>This has probably been one of the most frustrating problems I have had with the app thus far, and of course, it has to do with the sometimes-obnoxious, sometimes-amazing magic dance of ruby on rails. When Nick and I began this project, neither of us knew anything about rails. I fired up a rails app naively, expecting to just be able to write like a JS wizard. So, I downloaded all my files like a noob and put them in lib. I open up my index, and I see the rails default index.html.</p>
+
+<p>Scratching my head in frustration for a day, I finally pushed the index page into the public folder, replacing the default index.html with my own. Finally, I could see my own content. But now that I was trying to put the THREE et al.  library in the assets pipeline. Upon loading my index, nothing showed. Incredibly frustrating. I scoured stackoverflow and the rails documentation for a way to feed my assets to my index. Little did I know, the public index is not loaded with the same assets as the html files in views. I clearly did not understand MVC architecture and the way rails organizes its contents.</p>
+
+<p><img class="left" src="/images/firstdir.png" width="100"></p>
+
+<p>My temporary fix was cute. I moved the whole assets pipeline to the public directory of my app. The resulting directory tree looked like the directory on the left. Oh boy. It&rsquo;s tough looking at that now. But it worked for the development phase.</p>
+
+<h3>Reorganizing</h3>
+
+<p>Now that I&rsquo;ve worked on several apps, I&rsquo;ve gotten my ish together. Although the function of the app is incredibly simple, making it work with rails requires specific knowledge about the asset pipeline. Knowing where to put files and how to call them in a view is not as simple as one might think.</p>
+
+<p><img class="right" src="/images/seconddir.png" width="100"></p>
+
+<p>Firstly, a home controller has to handle the root to index. That&rsquo;s some basic stuff I didn&rsquo;t know before learning rails at Flatiron. Then, the assets have to be moved over from the public/app/assets directory to the proper app/assets/ path. It gets very messy here. The asset pipeline is like that boss that&rsquo;s easy to everyone else who plays the same video-game, and yet, I could never seem to beat him as a kid. I&rsquo;m having PTSD flashbacks to playing Zelda as a kid. BUt this time, I&rsquo;m not as ignorant. I know to add my requires in the application.js and application.css files; however, I spend a while figuring out that requiring the tree puts them in alphabetic order. That&rsquo;s bad when their dependencies are not alphabetical!</p>
+
+<p>Anyways, I sort my js and css files out. I have an applicaiton that is semi-functional. None of my ply objects or textures have loaded. In order to do that, I need to 1) factor my gallery.js out to a partial, 2) put an asset_path tag anywhere I&rsquo;m loading a texture or ply object (omg my time is valuable tho), 3) configure the asset pipeline in my application.rb file.</p>
+
+<p>Gotta' specify where things are for muh apps.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">paths</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/app/assets/textures&quot;</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">paths</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/app/assets/ply&quot;</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">paths</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/app/assets/shaders&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Web workers are a different thing. That&rsquo;s more complicated. Email me if you want my solution for how I got my ammo.js and physjs_worker.js to precompile and get called in my gallery partial.</p>
+
+<h3>Deploying to Heroku</h3>
+
+<p>Can we not even? Just kidding. It wasn&rsquo;t that bad. Sqlite is evil though. Don&rsquo;t do it. Heroku and its finecky nature!</p>
+
+<p>But seriously, a tip I have for anyone deploying a web app to heroku that has to precompile web workers:</p>
+
+<p>Precompile on your own machine with:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">rake</span> <span class="ss">assets</span><span class="p">:</span><span class="n">precompile</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and then deploy.</p>
+
+<p>Spend your free time playing with olives at martha-friedman.herokuapp.com.</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-01T10:43:08-04:00" pubdate data-updated="true"></time></div>
+	
+
+
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    Gerardo Veltri
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
