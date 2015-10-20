@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sculpture | work and hypertext]]></title>
+  <link href="http://gveltri.github.io/blog/categories/sculpture/atom.xml" rel="self"/>
+  <link href="http://gveltri.github.io/"/>
+  <updated>2015-10-20T12:48:23-04:00</updated>
+  <id>http://gveltri.github.io/</id>
+  <author>
+    <name><![CDATA[Gerardo Veltri]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Modular Code for Modular Works of Art]]></title>
+    <link href="http://gveltri.github.io/blog/2015/09/02/sculpture-mechanics/"/>
+    <updated>2015-09-02T15:22:49-04:00</updated>
+    <id>http://gveltri.github.io/blog/2015/09/02/sculpture-mechanics</id>
+    <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp; A key feature of Martha Friedman&rsquo;s work is its modularity. Although you won&rsquo;t see people rearranging parts of pieces in the gallery, the human-scale sculptures appear composed of individual objects that are strung through poles or resting on boxes. The digital gallery, however, allows the user to enter an interactive fantasy in which the heavy and delicate pieces can be removed and reaffixed to other supports.</p>
+
+<p><img class="right" src="/images/olive-totem.jpg" width="300" height="500"></p>
+
+<p>&nbsp;&nbsp;&nbsp; Allowing the user to separate objects and rearrange them in a sensible way is an integral part of creating an impactful user experience. Otherwise, a perfectly rendered scene would harly differentiate itself from a photograph, which, along with text, is the artist&rsquo;s medium of choice for representing their artwork. Thus, a logical implementation of cohesion would elevate the gallery in its uniqueness and specificity to the artist&rsquo;s work.</p>
+
+<p>&nbsp;&nbsp;&nbsp; The logic of this mechanic should follow the physical architecture of the sculpture. However it&rsquo;s made in real life should be reflected in the digital environment. <em>Olive Totem</em> (2011) has a cement cube base with a pole perpendicular to the ground. Rubber pimento-stuffed olives are placed at the top of the pole and slid down into place. In the world of computers, we call this a <em>stack</em>. A stack is a collection in which the last added element is the first one removed. Adding to a stack is calling pushing; removing, popping. If one wants to remove a digital olive from the digital armature, it has to be popped from an array of olives where the last olive is the highest on the totem.</p>
+
+<p><img class="left" src="/images/stack.svg" width="300" height="500"></p>
+
+<p>&nbsp;&nbsp;&nbsp; Stacks allow us to conceptualize how the problem might begin to be solved; however, none of the libraries used in this project provide an immediately useable solution to solving this problem. And after hacking away at this problem with my collaborator for a week or so, we discovered that our phsyics engine doesn&rsquo;t support porous meshes. That is&ndash; an olive can&rsquo;t simply have a hole in it and be strung onto the sculpture as in real life. The mechanics of olive stacking must be incorporated in the physics of the environment.</p>
+
+<p>&nbsp;&nbsp;&nbsp; Because we&rsquo;ve already identified this arrangement of pieces as a stack, we know that the mechanics of sculpting will revolve around popping and pushing from an array. There are two majorly important pieces of data in this situation: the array of olives and the armature onto which the olives are &ldquo;snapped&rdquo;. Anyone who knows adobe products well should be familiar with snapping. Snapping is the sometimes-annoying function that moves an object to a specific position when it comes within a certain range of that position. Snapping is how the olives transition between being free objects and anchored to an armature. However, not just any object can be snapped on and off. Only the last object in the array is poppable. Upon initialization this object is pushed to the moveable_objects array, and when it is popped, the next olive is added to the moveable_objects array. The following code is the result of marrying this logic with the environment variables (mouse clicks), 3D models and physics engine.</p>
+
+<p>&nbsp;&nbsp;&nbsp; At the top of my gallery.js, I declared the armature, intersect_cylinder, olives array, and slected_thing as global variables so that they can be accessed by the eventhandlers, the functions that handle user input.</p>
+
+<pre><code class="javascript">var armature, intersect_cylinder, olives = [], selected_thing;
+</code></pre>
+
+<p>&nbsp;&nbsp;&nbsp; When the mouse clicks an object (selected_thing), this bit of code is run. Here, it should unsnap an object if it the selected_thing is the last object in the olives array.</p>
+
+<pre><code class="javascript">if (selected_thing == olives[olives.length-1]) {
+    olives.pop();
+    // only makes next olive moveable if it exists
+    if (olives.length !== 0)
+    moveable_objects.push(olives[olives.length-1]);
+}
+</code></pre>
+
+<p>When the mouse is unclicked, this bit of code is run:</p>
+
+<pre><code class="javascript">//retrieves coordinates of the mouse click
+_vector.set((evt.clientX / window.innerWidth) * 2 - 1,
+        -(evt.clientY / window.innerHeight ) * 2 + 1,
+        1);
+
+//a raycaster returns whatever intersects with the 3D line
+//drawn from the camera through the mouse click on the near frustum
+raycaster.setFromCamera(_vector, camera);
+var collisionResults = raycaster.intersectObjects( [intersect_cylinder, armature].concat(olives) );
+
+//if the mouse unclicks on any bit of the sculpture,
+//the snapping function begins
+if ( collisionResults.length !== 0) {
+    if (olives.length == 0) {
+    var snap_y = -11 + selected_thing.geometry.boundingSphere.radius;       
+    }
+    else {
+    var snap_y = olives[olives.length-1].position.y
+        + olives[olives.length-1].geometry.boundingBox.max.x
+        + selected_thing.geometry.boundingBox.max.x;
+    }
+
+    selected_thing.__dirtyPosition = true;
+
+    //put object in position
+    selected_thing.position.x=armature.position.x;
+    selected_thing.position.y=snap_y;
+    selected_thing.position.z=armature.position.z;
+
+
+    //make object static
+    var _v3 = new THREE.Vector3(0,0,0);
+    selected_thing.setAngularFactor(_v3);
+    selected_thing.setLinearFactor(_v3);
+    selected_thing.setLinearVelocity(_v3);
+
+    //make last object on olive totem moveable
+    var last_index = moveable_objects.indexOf(olives[olives.length-1]);
+    moveable_objects.splice(last_index,1);
+    if (moveable_objects.indexOf(selected_thing) == null) {
+    moveable_objects.push(selected_thing);
+    // avoids creating duplicates if the object is already in the moveable objects array
+    }
+
+    //finally, push selected_thing on the olives stack
+    olives.push(selected_thing);
+
+
+}
+</code></pre>
+
+<p>And with a lot of debugging, it works like a charm.</p>
+
+<p>&nbsp;&nbsp;&nbsp; After playing around a bit in the console, adding new sculptures wherever I saw fit, I discovered a rather annoying problem. When I add another sculpture that has the armature/olive stack feature, I have to duplicate the code above. This code is not designed to scale with new sculptures being added, dynamically or not. Slightly restructuring the logic of this feature will improve the performance of the gallery and its potential for further development. It simply requires refactoring the olives and armature into an object that is then added to an array of globally accessible sculptures.</p>
+
+<p>The resulting global variables are then simply:</p>
+
+<pre><code class="javascript">var selected_thing, sculptures = [];
+</code></pre>
+
+<p>And the sculpture object looks something like:</p>
+
+<pre><code class="javascript">var Sculpture = function(armature,modules) {
+    this.armature = armature;
+    this.modules = modules;
+    sculptures.push(this);
+};
+</code></pre>
+
+<p>Which means that everything in the snapping function has to be changed accordingly.</p>
+
+<p>Snapping off:</p>
+
+<pre><code class="javascript">for (i = 0; i &lt; sculptures.length; i++) {
+    if (selected_thing == sculptures[i].modules[sculptures[i].modules.length-1]) {
+    sculptures[i].modules.pop();
+    // only makes next olive moveable if it exists
+    if (sculptures[i].modules.length !== 0)
+        moveable_objects.push(sculptures[i].modules[sculptures[i].modules.length-1]);
+    break;
+    }
+
+}
+</code></pre>
+
+<p>And the snapping to:</p>
+
+<pre><code class="javascript">
+var sculpture;
+var collisionResults;
+
+_vector.set((evt.clientX / window.innerWidth) * 2 - 1,
+        -(evt.clientY / window.innerHeight ) * 2 + 1,
+        1);
+
+raycaster.setFromCamera(_vector, camera);
+
+//iterates through sculpture objects
+for (i = 0; i &lt; sculptures.length; i++) {
+    collisionResults = raycaster.intersectObjects(sculptures[i].modules.concat(sculptures[i].armature));
+    if (collisionResults.length !== 0) {
+    sculpture = sculptures[i];
+    break;
+    }
+}
+
+
+if ( collisionResults.length !== 0) {
+    if (sculpture.modules.length == 0) {
+    var snap_y = -11 + selected_thing.geometry.boundingSphere.radius;
+    }
+    else {
+    var snap_y = sculpture.modules[sculpture.modules.length-1].position.y
+        + sculpture.modules[sculpture.modules.length-1].geometry.boundingBox.max.x
+        + selected_thing.geometry.boundingBox.max.x;
+    }
+
+    selected_thing.__dirtyPosition = true;
+
+    //put object in position
+    selected_thing.position.x=sculpture.armature.position.x;
+    selected_thing.position.y=snap_y;
+    selected_thing.position.z=sculpture.armature.position.z;
+
+
+    //make object static
+    var _v3 = new THREE.Vector3(0,0,0);
+    selected_thing.setAngularFactor(_v3);
+    selected_thing.setLinearFactor(_v3);
+    selected_thing.setLinearVelocity(_v3);
+
+    //make last object on sculpture stack moveable
+    var last_index = moveable_objects.indexOf(sculpture.modules[sculpture.modules.length-1]);
+    moveable_objects.splice(last_index,1);
+    if (moveable_objects.indexOf(selected_thing) == null) {
+    moveable_objects.push(selected_thing);
+    // avoids creating duplicates if the object is already in the moveable objects array
+    }
+
+    //finally, push selected_thing on the sculpture stack
+    sculpture.modules.push(selected_thing);
+
+
+}
+//end snapping
+
+selected_thing = null;
+}
+</code></pre>
+
+<p>&nbsp;&nbsp;&nbsp; Because I&rsquo;ve now folded the armature and olives into an object, I can further refactor the code to include logic specific to the piece. Moving forward, I plan to include new mechanics beyond stacking and animating the snapping and desnapping so as to enhance the user&rsquo;s experience.</p>
+
+<p>&nbsp;&nbsp;&nbsp; Also, those damn olives need to be properly modeled.</p>
+]]></content>
+  </entry>
+  
+</feed>

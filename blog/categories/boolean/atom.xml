@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: boolean | work and hypertext]]></title>
+  <link href="http://gveltri.github.io/blog/categories/boolean/atom.xml" rel="self"/>
+  <link href="http://gveltri.github.io/"/>
+  <updated>2015-10-20T12:48:23-04:00</updated>
+  <id>http://gveltri.github.io/</id>
+  <author>
+    <name><![CDATA[Gerardo Veltri]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Bit of Boolean Logic and its History]]></title>
+    <link href="http://gveltri.github.io/blog/2015/09/16/boolean-algebra/"/>
+    <updated>2015-09-16T10:09:10-04:00</updated>
+    <id>http://gveltri.github.io/blog/2015/09/16/boolean-algebra</id>
+    <content type="html"><![CDATA[<p>Understanding the fundamentals of computing is not only valuable for coding interviews. I would identify myself as someone who believes in this axiom: history helps us better understand the present. I’m particularly interested in how the machine processes information at the most fundamental level. Society is generally aware that our machines process information as a series of 0s and 1s, but how exactly does that work?</p>
+
+<p><img class="right" src="/images/shannon.jpg"></p>
+
+<p>The story of the 0s and 1s begins, for our intents and purposes, at MIT’s graduate school. Claude Shannon, who is famous for his later founding of information theory, wrote a masters thesis applying the slightly obscure Boolean algebra to the problem of telephone relays. For much of the 20th century, routing telephone calls was an incredibly costly operation. His thesis, <em>A Symbolic Analysis of Relay Switching Circuits</em>, showed that boolean algebra could simplify the system of relays that were currently in place as well as the converse&ndash;that relays could be arranged to solve problems in boolean algebra. This assertion made clear the relationship between circuits and logic gates.</p>
+
+<p>We all know that a boolean is either 1 or 0, so boolean algebra is the set of operations that can be performed on a boolean. In every computer, circuits are a physical manifestation of the logic of booleans. This is the most basic logic that allows a program to run, for the computer to be booted&ndash;for anything to work digitally. These are its first order operations:</p>
+
+<p><img class="left" src="/images/transistor.jpg"></p>
+
+<h3>AND, OR, and NOT</h3>
+
+<p><em>AND</em> is a conjunction. If and only if both booleans are true, then their conjunction is also true. We represent this in our higher-level programming languages (like Ruby and JavaScript) as <em>A &amp;&amp; B</em>.</p>
+
+<p><em>OR</em> is a disjunction. If either boolean is true, then their disjunction is true. If both are false, then their disjunction is false. <em>A || B</em> in our terms.</p>
+
+<p><em>NOT</em> is a negation. If a boolean is true, it&rsquo;s negation is false and vice versa. And as you might expect, <em>!A</em>.</p>
+
+<p>Now, what interests me most about boolean logic is that the combination of these three basic functions produces all of the operations we could possibly want to do on any bit of information.</p>
+
+<p>For example, a <em>NOR</em> is a combination of negation and disjunction. It is true if neither boolean is true. It would look something like <em>!(A || B)</em>.</p>
+
+<p>By now, we can deduce what <em>NAND</em> might look like: <em>!(A &amp;&amp; B)</em>.</p>
+
+<p>There are many ways of representing these operations, and perhaps one of the most clear ways is a truth table. Because operations can be strung together to make even more complicated operations, these tables can end up having many columns. Here&rsquo;s a rather simple truth table:</p>
+
+<p><img src="/images/logic-table.png"></p>
+
+<p><img class="right" src="/images/2to1mux.png" width="150"></p>
+
+<p>And here&rsquo;s a truth table for a multiplexer. A multiplexer selects a signal based on the value of the selector, s. Muxes are everywhere. They are in your CPU, graphics card. The output of a Mux is Demuxed on the other end. Multiplexers allow an engineer to send multiple different signals over the same channel by selecting them at different times. Otherwise, a bunch of channels would be necessary. What&rsquo;s the obvious application for this? A telephone network&ndash;the original problem that Shannon exposed to boolean algebra.</p>
+]]></content>
+  </entry>
+  
+</feed>

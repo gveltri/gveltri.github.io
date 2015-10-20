@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: heroku | work and hypertext]]></title>
+  <link href="http://gveltri.github.io/blog/categories/heroku/atom.xml" rel="self"/>
+  <link href="http://gveltri.github.io/"/>
+  <updated>2015-10-20T12:48:23-04:00</updated>
+  <id>http://gveltri.github.io/</id>
+  <author>
+    <name><![CDATA[Gerardo Veltri]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Deploying to Heroku]]></title>
+    <link href="http://gveltri.github.io/blog/2015/10/01/mf-beta/"/>
+    <updated>2015-10-01T10:43:08-04:00</updated>
+    <id>http://gveltri.github.io/blog/2015/10/01/mf-beta</id>
+    <content type="html"><![CDATA[<h3>Humble Beginnings</h3>
+
+<p>This has probably been one of the most frustrating problems I have had with the app thus far, and of course, it has to do with the sometimes-obnoxious, sometimes-amazing magic dance of ruby on rails. When Nick and I began this project, neither of us knew anything about rails. I fired up a rails app naively, expecting to just be able to write like a JS wizard. So, I downloaded all my files like a noob and put them in lib. I open up my index, and I see the rails default index.html.</p>
+
+<p>Scratching my head in frustration for a day, I finally pushed the index page into the public folder, replacing the default index.html with my own. Finally, I could see my own content. But now that I was trying to put the THREE et al.  library in the assets pipeline. Upon loading my index, nothing showed. Incredibly frustrating. I scoured stackoverflow and the rails documentation for a way to feed my assets to my index. Little did I know, the public index is not loaded with the same assets as the html files in views. I clearly did not understand MVC architecture and the way rails organizes its contents.</p>
+
+<p><img class="left" src="/images/firstdir.png" width="100"></p>
+
+<p>My temporary fix was cute. I moved the whole assets pipeline to the public directory of my app. The resulting directory tree looked like the directory on the left. Oh boy. It&rsquo;s tough looking at that now. But it worked for the development phase.</p>
+
+<h3>Reorganizing</h3>
+
+<p>Now that I&rsquo;ve worked on several apps, I&rsquo;ve gotten my ish together. Although the function of the app is incredibly simple, making it work with rails requires specific knowledge about the asset pipeline. Knowing where to put files and how to call them in a view is not as simple as one might think.</p>
+
+<p><img class="right" src="/images/seconddir.png" width="100"></p>
+
+<p>Firstly, a home controller has to handle the root to index. That&rsquo;s some basic stuff I didn&rsquo;t know before learning rails at Flatiron. Then, the assets have to be moved over from the public/app/assets directory to the proper app/assets/ path. It gets very messy here. The asset pipeline is like that boss that&rsquo;s easy to everyone else who plays the same video-game, and yet, I could never seem to beat him as a kid. I&rsquo;m having PTSD flashbacks to playing Zelda as a kid. BUt this time, I&rsquo;m not as ignorant. I know to add my requires in the application.js and application.css files; however, I spend a while figuring out that requiring the tree puts them in alphabetic order. That&rsquo;s bad when their dependencies are not alphabetical!</p>
+
+<p>Anyways, I sort my js and css files out. I have an applicaiton that is semi-functional. None of my ply objects or textures have loaded. In order to do that, I need to 1) factor my gallery.js out to a partial, 2) put an asset_path tag anywhere I&rsquo;m loading a texture or ply object (omg my time is valuable tho), 3) configure the asset pipeline in my application.rb file.</p>
+
+<p>Gotta' specify where things are for muh apps.</p>
+
+<pre><code class="ruby">config.assets.enabled = true
+  config.assets.paths &lt;&lt; "#{Rails.root}/app/assets/textures"
+  config.assets.paths &lt;&lt; "#{Rails.root}/app/assets/ply"
+  config.assets.paths &lt;&lt; "#{Rails.root}/app/assets/shaders"
+</code></pre>
+
+<p>Web workers are a different thing. That&rsquo;s more complicated. Email me if you want my solution for how I got my ammo.js and physjs_worker.js to precompile and get called in my gallery partial.</p>
+
+<h3>Deploying to Heroku</h3>
+
+<p>Can we not even? Just kidding. It wasn&rsquo;t that bad. Sqlite is evil though. Don&rsquo;t do it. Heroku and its finecky nature!</p>
+
+<p>But seriously, a tip I have for anyone deploying a web app to heroku that has to precompile web workers:</p>
+
+<p>Precompile on your own machine with:</p>
+
+<pre><code class="ruby">rake assets:precompile
+</code></pre>
+
+<p>and then deploy.</p>
+
+<p>Spend your free time playing with olives at martha-friedman.herokuapp.com.</p>
+]]></content>
+  </entry>
+  
+</feed>

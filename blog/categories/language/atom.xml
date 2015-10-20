@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: language | work and hypertext]]></title>
+  <link href="http://gveltri.github.io/blog/categories/language/atom.xml" rel="self"/>
+  <link href="http://gveltri.github.io/"/>
+  <updated>2015-10-20T12:48:23-04:00</updated>
+  <id>http://gveltri.github.io/</id>
+  <author>
+    <name><![CDATA[Gerardo Veltri]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[You Betta Work: enter the Web Worker]]></title>
+    <link href="http://gveltri.github.io/blog/2015/10/18/web-workers/"/>
+    <updated>2015-10-18T20:42:15-04:00</updated>
+    <id>http://gveltri.github.io/blog/2015/10/18/web-workers</id>
+    <content type="html"><![CDATA[<p><img src="images/you-betta-work.gif"></p>
+
+<p>I&rsquo;m one of those people that thinks Javascript is fascinating and beautiful. I love typing prototype to add a method to an object. Actually, scratch that. But seriously, Javascript can be implemented in the most fascinating ways. Through my web-development journey, I have come across this &lsquo;web-worker&rsquo; guy several times. For those that are curious as me, I&rsquo;ve done a bit of research and collected some interesting information about what exactly web-workers do and why you should care.</p>
+
+<h3>Fundamentals</h3>
+
+<p>Firstly, to understand what web-workers are doing, it&rsquo;s important to understand what basic JavaScript running in your browser is doing. First point:</p>
+
+<ul>
+<li>Javascript is embedded in your browser.</li>
+</ul>
+
+
+<p>I&rsquo;ll assume the reader has a bit of familiarity with JavaScript. It&rsquo;s implemented in a browser to give functionality to a web page especially when static elements like CSS and HTML might need to be animated or interactive.</p>
+
+<p>When Javascript is loaded on a page, it is actually placed into the HTML in a &lsquo;&lt;script>&rsquo; tag. If I use a script tag and label the source as another file in my assets, it will render the page with the JavaScript inside those brackets. Tangentially related, this embedded code is interpreted by the browser which then compiles the script in byte code. (Let&rsquo;s avoid going down the wormhole of interpreted/compiled&ndash;it&rsquo;s a bit of both, am I right?)
+The script that one sees in the source code of their page is handled as the main UI thread. This is the main execution process. It will register an on-click event. It has access to elements on the page and can make minor calculations. This brings us to the second point:</p>
+
+<h3>Limitations of the Main thread</h3>
+
+<p><img class="right" src="images/chrome-unresponsive.png"></p>
+
+<p>This error message.</p>
+
+<p>When your browser is running a script and the computation takes too long, it catches the error with this alert. The browser cannot tell the difference between a script that is in an infinite loop and one that is simply taking too long. A certain time interval is set as the threshold. Why don&rsquo;t we just test the script to see if it is in an infinite loop? Oh wait&ndash;<a href="https://en.wikipedia.org/wiki/Halting_problem">halting problem</a>.</p>
+
+<p>So, we have one main thread in the browser that can only run short calculations. But, say we want to render a 3D environment and simulate physics in that environment? That&rsquo;s some heavy computation! What if I want to find a really big prime number?</p>
+
+<h3>Enter the web-worker</h3>
+
+<p>The web worker is a script that runs independent of the main thread&rsquo;s event queue. It can handle large processes that would normally time out if they were run as a user interface script. With a web worker, I could make the aforementioned calculations independent of what events are going on in the window.</p>
+
+<p>The way it works:</p>
+
+<p><img src="images/web-worker-diagram.png"></p>
+
+<ul>
+<li>The main thread creates the web worker object as well as a web worker object to be sent input from main.</li>
+</ul>
+
+
+<pre><code class="js"> var worker = new Worker('worker.js');
+</code></pre>
+
+<ul>
+<li>The main thread receives output from the web worker using &lsquo;.onmessage&rsquo;.</li>
+</ul>
+
+
+<pre><code class="js">worker.onmessage = function(event) {
+  console.log(event.data);
+  // puts the output to the console whenever it is sent
+}
+</code></pre>
+
+<ul>
+<li>The main thread sends input to the web worker through &lsquo;.postMessage&rsquo;.</li>
+</ul>
+
+
+<pre><code class="js">function sendInput(input) {
+  worker.postMessage(input);
+}
+</code></pre>
+
+<p>In the main thread, we have to specify which worker we are sending the input and output to; however, the web worker need only say that it is receiving or sending information. This is because the worker is linked to its origin of creation. If I want the dedicated worker to send and receive information, I simply call the function postMessage() or onmessage().</p>
+
+<p>To be specific, we are talking about <em>dedicated</em> web workers. They have a global scope that allows you to implicity call a MessagePort object with postMessage and onmessage. This is not the case for all web workers. A shared web worker has a SharedWorkerGlobalScope, which allows the worker to receive input from multiple sources through an &lsquo;onconnect&rsquo; event. This functionality allows for separate windows in the browser to connect to the same web worker.</p>
+
+<p>While workers allow us to run heavy computation independent of the event queue, there is a trade-off. If you try accessing DOM, window or parent objects from a worker, you will get <em>undefined</em>. Everything else is fair game. So, if you want heavy computation and window events, you have to interweave the workers and the main thread.</p>
+
+<h3>Get to Work!</h3>
+
+<p>I&rsquo;m sure by now the reader gets a sense of what this tool could be used for. Thus far in my development journey, I have been using workers to simulate physics for a rendered 3D environment.</p>
+
+<p>Physijs uses the physijs_worker to compute the physics of the scene which then posts the response back to the main thread. The formulas are actually written in ammo.js, a port from the C++ physics engine, bullet.</p>
+
+<p>In physi.js, the main thread of the simulation, the worker is thus instantiated and immediately sets transferableMessage to be the postMessage function. TransferableMessage allows for sending an object completely across worker boundaries, neutralizing the original. Come back for another blog post on this functionality.</p>
+
+<p>physi.js
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">this</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">worker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Worker</span><span class="p">(</span> <span class="nx">Physijs</span><span class="p">.</span><span class="nx">scripts</span><span class="p">.</span><span class="nx">worker</span> <span class="o">||</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">physijs_worker</span><span class="p">.</span><span class="nx">js</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span> <span class="p">);</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/em&gt;worker.transferableMessage = this.&lt;em&gt;worker.webkitPostMessage || this.&lt;/em&gt;worker.postMessage;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="c1">// ...</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">ab</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArrayBuffer</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">_worker</span><span class="p">.</span><span class="nx">transferableMessage</span><span class="p">(</span> <span class="nx">ab</span><span class="p">,</span> <span class="p">[</span><span class="nx">ab</span><span class="p">]</span> <span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span>
+</span><span class='line'><span class="nx">The</span> <span class="nx">last</span> <span class="nx">two</span> <span class="nx">lines</span> <span class="nx">post</span> <span class="nx">the</span> <span class="nx">message</span> <span class="nx">to</span> <span class="nx">physijs_worker</span><span class="p">.</span><span class="nx">js</span><span class="p">.</span> <span class="nx">Let</span><span class="s1">&#39;s take a look at what&#39;</span><span class="nx">s</span> <span class="nx">going</span> <span class="nx">on</span> <span class="nx">there</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">physijs_worker</span><span class="p">.</span><span class="nx">js</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">transferableMessage</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">webkitPostMessage</span> <span class="o">||</span> <span class="nx">self</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Again, the script sets transferableMessage to be the function by which messages are sent back to the main thread. And later in the script, the worker sends back the same objects, updated with calculations.</p>
+
+<pre><code class="js">var ab = new ArrayBuffer( 1 );
+transferableMessage( ab, [ab] );
+</code></pre>
+
+<h3>Sources</h3>
+
+<p>For further reading, check out these thorough resources on the subject:</p>
+
+<p><a href="https://html.spec.whatwg.org/multipage/workers.html">https://html.spec.whatwg.org/multipage/workers.html</a>
+<a href="http://javascript.info/tutorial/events-and-timing-depth">http://javascript.info/tutorial/events-and-timing-depth</a>
+<a href="http://www.slideserve.com/rogan-goodman/using-web-workers-in-javascript">http://www.slideserve.com/rogan-goodman/using-web-workers-in-javascript</a>
+<a href="https://msdn.microsoft.com/en-us/hh549259.aspx">https://msdn.microsoft.com/en-us/hh549259.aspx</a></p>
+
+<p>On transferable objects:
+<a href="http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#transferable-objects">http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#transferable-objects</a>
+<a href="http://developerblog.redhat.com/2014/05/20/communicating-large-objects-with-web-workers-in-javascript/">http://developerblog.redhat.com/2014/05/20/communicating-large-objects-with-web-workers-in-javascript/</a></p>
+]]></content>
+  </entry>
+  
+</feed>

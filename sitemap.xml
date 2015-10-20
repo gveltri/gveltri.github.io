@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gveltri.github.io/blog/2015/10/18/web-workers/</loc>
+    <lastmod>2015-10-18T20:42:15-04:00</lastmod>
+  </url>
+  <url>
     <loc>http://gveltri.github.io/blog/2015/10/01/mf-beta/</loc>
     <lastmod>2015-10-01T10:43:08-04:00</lastmod>
   </url>
@@ -53,5 +57,89 @@
   </url>
   <url>
     <loc>http://gveltri.github.io/blog/categories/shell-scripts/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/three/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/art/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/sculpture/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/interaction/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/design/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/boolean/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/logic/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/information/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/theory/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/claude/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/shannon/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/math/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/gates/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/transistor/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/bell/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/labs/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/heroku/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/asset/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/pipeline/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/rails/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/deploying/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/ruby/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/web/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/workers/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/ecmascript/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/multi-threaded/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/interpreted/</loc>
+  </url>
+  <url>
+    <loc>http://gveltri.github.io/blog/categories/language/</loc>
   </url>
 </urlset>
