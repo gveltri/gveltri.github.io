@@ -4,7 +4,7 @@
   <title><![CDATA[Category: workers | work and hypertext]]></title>
   <link href="http://gveltri.github.io/blog/categories/workers/atom.xml" rel="self"/>
   <link href="http://gveltri.github.io/"/>
-  <updated>2015-10-20T13:01:33-04:00</updated>
+  <updated>2015-10-20T13:11:04-04:00</updated>
   <id>http://gveltri.github.io/</id>
   <author>
     <name><![CDATA[Gerardo Veltri]]></name>
@@ -18,9 +18,9 @@
     <link href="http://gveltri.github.io/blog/2015/10/18/web-workers/"/>
     <updated>2015-10-18T20:42:15-04:00</updated>
     <id>http://gveltri.github.io/blog/2015/10/18/web-workers</id>
-    <content type="html"><![CDATA[<p><img src="images/you-betta-work.gif"></p>
+    <content type="html"><![CDATA[<p><img src="/images/you-betta-work.gif"></p>
 
-<p>I&rsquo;m one of those people that thinks Javascript is fascinating and beautiful. I love typing prototype to add a method to an object. Actually, scratch that. But seriously, Javascript can be implemented in the most fascinating ways. Through my web-development journey, I have come across this &lsquo;web-worker&rsquo; guy several times. For those that are curious as me, I&rsquo;ve done a bit of research and collected some interesting information about what exactly web-workers do and why you should care.</p>
+<p>I&rsquo;m one of those people that thinks JavaScript is fascinating and beautiful. I love typing prototype to add a method to an object. Just kidding. Seriously though, JavaScript can be implemented in the most fascinating ways. Through my web-development journey, I have come across this &lsquo;web-worker&rsquo; guy several times. For those that are curious as me, I&rsquo;ve done a bit of research and collected some interesting information about what exactly web-workers do and why you should care.</p>
 
 <h3>Fundamentals</h3>
 
@@ -38,7 +38,7 @@ The script that one sees in the source code of their page is handled as the main
 
 <h3>Limitations of the Main thread</h3>
 
-<p><img class="right" src="images/chrome-unresponsive.png"></p>
+<p><img class="right" src="/images/chrome-unresponsive.png"></p>
 
 <p>This error message.</p>
 
@@ -52,7 +52,7 @@ The script that one sees in the source code of their page is handled as the main
 
 <p>The way it works:</p>
 
-<p><img src="images/web-worker-diagram.png"></p>
+<p><img src="/images/web-worker-diagram.png"></p>
 
 <ul>
 <li>The main thread creates the web worker object as well as a web worker object to be sent input from main.</li>
@@ -142,14 +142,21 @@ transferableMessage( ab, [ab] );
 
 <p>For further reading, check out these thorough resources on the subject:</p>
 
-<p><a href="https://html.spec.whatwg.org/multipage/workers.html">https://html.spec.whatwg.org/multipage/workers.html</a>
-<a href="http://javascript.info/tutorial/events-and-timing-depth">http://javascript.info/tutorial/events-and-timing-depth</a>
-<a href="http://www.slideserve.com/rogan-goodman/using-web-workers-in-javascript">http://www.slideserve.com/rogan-goodman/using-web-workers-in-javascript</a>
-<a href="https://msdn.microsoft.com/en-us/hh549259.aspx">https://msdn.microsoft.com/en-us/hh549259.aspx</a></p>
+<ul>
+<li><a href="https://html.spec.whatwg.org/multipage/workers.html">https://html.spec.whatwg.org/multipage/workers.html</a></li>
+<li><a href="http://javascript.info/tutorial/events-and-timing-depth">http://javascript.info/tutorial/events-and-timing-depth</a></li>
+<li><a href="http://www.slideserve.com/rogan-goodman/using-web-workers-in-javascript">http://www.slideserve.com/rogan-goodman/using-web-workers-in-javascript</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/hh549259.aspx">https://msdn.microsoft.com/en-us/hh549259.aspx</a></li>
+</ul>
 
-<p>On transferable objects:
-<a href="http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#transferable-objects">http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#transferable-objects</a>
-<a href="http://developerblog.redhat.com/2014/05/20/communicating-large-objects-with-web-workers-in-javascript/">http://developerblog.redhat.com/2014/05/20/communicating-large-objects-with-web-workers-in-javascript/</a></p>
+
+<p>On transferable objects:</p>
+
+<ul>
+<li><a href="http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#transferable-objects">http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#transferable-objects</a></li>
+<li><a href="http://developerblog.redhat.com/2014/05/20/communicating-large-objects-with-web-workers-in-javascript/">http://developerblog.redhat.com/2014/05/20/communicating-large-objects-with-web-workers-in-javascript/</a></li>
+</ul>
+
 ]]></content>
   </entry>
   
